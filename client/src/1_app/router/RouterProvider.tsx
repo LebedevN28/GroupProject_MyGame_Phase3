@@ -9,6 +9,7 @@ import Layout from '../../2_pages/Note/Layout/Layout';
 import { AuthStatus } from '../../4_features/auth/model/auth.types';
 import AddNotePage from '../../2_pages/Note/AddNotePage/AddNotePage';
 import LoginPage from '../../2_pages/Auth/LoginPage/LoginPage';
+import RezultPage from '../../2_pages/Note/RezultPage/RezultPage';
 
 export default function RouterProvider(): React.JSX.Element {
   const status = useAppSelector((store) => store.auth.data.status);
@@ -21,6 +22,8 @@ export default function RouterProvider(): React.JSX.Element {
 
         {/* Страница со списком заметок */}
         <Route path="/notes" element={<NotesPage />} />
+        {/* Pavel добавил */}
+        <Route path="/rezult" element={<RezultPage />} />
 
         {/* Добавление новой заметки */}
         <Route
