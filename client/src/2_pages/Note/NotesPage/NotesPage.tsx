@@ -4,6 +4,7 @@ import { useAppSelector, useAppDispatch } from '../../../6_shared/lib/hooks';
 import { getAllNotesThunk } from '../../../5_entities/note/model/noteThunks';
 import { getNotebooksThunk } from '../../../5_entities/notebook/model/notebookThunks'; // Thunk для получения ноутбуков
 import NoteCard from '../../../3_widgets/NoteList/NoteList';
+import NoteUpdateModal from '../../../5_entities/user/ui/NoteUpdateModal';
 
 export default function GameBoard(): React.JSX.Element {
   const notes = useAppSelector((store) => store.notes.notes);
@@ -64,7 +65,9 @@ export default function GameBoard(): React.JSX.Element {
             </Row>
           </Col>
         </Row>
+        
       ))}
+      <NoteUpdateModal />
     </Container>
   );
 }

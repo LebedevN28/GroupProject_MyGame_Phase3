@@ -74,7 +74,8 @@ export default function NoteUpdateModal(): React.JSX.Element {
                   style={{ margin: '10px' }}
                 >
                   Игрок 1<br />
-                  имя игрока<br />
+                  имя игрока
+                  <br />
                   очки
                 </Button>
                 <Button
@@ -84,7 +85,8 @@ export default function NoteUpdateModal(): React.JSX.Element {
                   style={{ margin: '10px' }}
                 >
                   Игрок 2<br />
-                  имя игрока<br />
+                  имя игрока
+                  <br />
                   очки
                 </Button>
                 <Button
@@ -94,7 +96,8 @@ export default function NoteUpdateModal(): React.JSX.Element {
                   style={{ margin: '10px' }}
                 >
                   Игрок 3<br />
-                  имя игрока<br />
+                  имя игрока
+                  <br />
                   очки
                 </Button>
               </Col>
@@ -115,9 +118,19 @@ export default function NoteUpdateModal(): React.JSX.Element {
         </Modal.Header>
         <Modal.Body>
           <Row>
-          <Button style={{backgroundColor: 'SpringGreen', margin: '7px 0px 7px 0px', color: 'black'}}>ОТВЕТ ВЕРНЫЙ</Button>
-          <Button style={{backgroundColor: 'LightCoral', margin: '2px 0px 7px 0px', color: 'black'}}>ОТВЕТ НЕВЕРНЫЙ</Button>
-          <Button variant='secondary' style={{marginTop: '70px'}}>ПРАВИЛЬНЫЙ ОТВЕТ...</Button>
+            <Button
+              style={{ backgroundColor: 'SpringGreen', margin: '7px 0px 7px 0px', color: 'black' }}
+            >
+              ОТВЕТ ВЕРНЫЙ
+            </Button>
+            <Button
+              style={{ backgroundColor: 'LightCoral', margin: '2px 0px 7px 0px', color: 'black' }}
+            >
+              ОТВЕТ НЕВЕРНЫЙ
+            </Button>
+            <Button variant="secondary" style={{ marginTop: '70px' }}>
+              ПРАВИЛЬНЫЙ ОТВЕТ...
+            </Button>
           </Row>
         </Modal.Body>
         <Modal.Footer>
@@ -129,10 +142,6 @@ export default function NoteUpdateModal(): React.JSX.Element {
     </>
   );
 }
-
-
-
-
 
 // import React from 'react';
 // import Button from 'react-bootstrap/Button';
@@ -216,8 +225,6 @@ export default function NoteUpdateModal(): React.JSX.Element {
 //     </Modal>
 //   );
 // }
-
-
 
 // import React from 'react';
 // import Button from 'react-bootstrap/Button';
