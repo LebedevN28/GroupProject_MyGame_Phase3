@@ -5,6 +5,7 @@ import { Col, Row, Form } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../../../6_shared/lib/hooks';
 import { setSelectedNote } from '../../note/model/noteSlice';
 import { editNoteThunk } from '../../note/model/noteThunks';
+import { updatePlayerScore } from '../../../4_features/player/playerSlice';
 
 export default function NoteUpdateModal(): React.JSX.Element {
   const dispatch = useAppDispatch();
@@ -13,6 +14,7 @@ export default function NoteUpdateModal(): React.JSX.Element {
   // Состояния
   const [showPlayerModal, setShowPlayerModal] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [selectedPlayer, setSelectedPlayer] = useState<{ id: string } | null>(null);
 
   // Закрытие основного модального окна
   const handleClose = (): void => {
@@ -26,8 +28,15 @@ export default function NoteUpdateModal(): React.JSX.Element {
   const handleHideAnswer = () => setShowAnswer(false);
 
   // Открытие модального окна игрока
-  const handlePlayerClick = () => setShowPlayerModal(true);
-  const handlePlayerModalClose = () => setShowPlayerModal(false);
+  const handlePlayerClick = (playerId: string) => {
+    setSelectedPlayer({ id: playerId });
+    setShowPlayerModal(true);
+  };
+
+  const handlePlayerModalClose = () => {
+    setShowPlayerModal(false); // Закрытие модального окна игрока
+    handleClose(); // Закрытие основного модального окна
+  };
 
   // Обработчик формы
   const submitHandler: React.FormEventHandler<HTMLFormElement> = async (e) => {
@@ -59,7 +68,7 @@ export default function NoteUpdateModal(): React.JSX.Element {
             <Row>
               <Col xs={12}>
                 <Form.Group className="mb-3 text-center">
-                  <Form.Label style={{ fontSize: '1.5rem', color: 'white' }}>
+                  <Form.Label style={{ fontSize: '1.5rem', color: 'black' }}>
                     {selectedNote?.content || 'Вопрос не найден'}
                   </Form.Label>
                 </Form.Group>
@@ -69,7 +78,7 @@ export default function NoteUpdateModal(): React.JSX.Element {
                   <Button
                     key={player}
                     variant="primary"
-                    onClick={handlePlayerClick}
+                    onClick={() => handlePlayerClick(`player${player}`)}
                     style={{
                       margin: '10px',
                       width: '30%',
@@ -96,7 +105,7 @@ export default function NoteUpdateModal(): React.JSX.Element {
       {/* Модальное окно для игрока */}
       <Modal show={showPlayerModal} onHide={handlePlayerModalClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Игрок №?</Modal.Title>
+          <Modal.Title>Игрок №{selectedPlayer?.id || '?'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Row>
@@ -106,18 +115,35 @@ export default function NoteUpdateModal(): React.JSX.Element {
                 margin: '7px 0',
                 color: 'black',
               }}
+              onClick={async () => {
+                if (selectedPlayer) {
+                  try {
+                    console.log('Updating score for player:', selectedPlayer.id);
+                    await dispatch(updatePlayerScore({ id: selectedPlayer.id, scoreChange: 1 }));
+                    console.log('Score updated successfully');
+                    handlePlayerModalClose(); // Закрытие обоих модальных окон
+                  } catch (error) {
+                    console.error('Error updating score:', error);
+                  }
+                } else {
+                  console.error('No player selected');
+                }
+              }}
             >
               ОТВЕТ ВЕРНЫЙ
             </Button>
+
             <Button
               style={{
                 backgroundColor: 'LightCoral',
                 margin: '7px 0',
                 color: 'black',
               }}
+              onClick={handlePlayerModalClose} // Закрытие обоих модальных окон
             >
               ОТВЕТ НЕВЕРНЫЙ
             </Button>
+
             <Button variant="secondary" style={{ marginTop: '20px' }} onClick={handleShowAnswer}>
               Показать ответ
             </Button>
