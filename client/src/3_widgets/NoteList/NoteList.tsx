@@ -1,13 +1,7 @@
-import React, { useTransition } from 'react';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import CloseIcon from '../../6_shared/ui/CloseIcon';
-import { useAppDispatch, useAppSelector } from '../../6_shared/lib/hooks';
-import HeartIcon from '../../6_shared/ui/HeartIcon';
-import { Spinner } from 'react-bootstrap';
+import { useAppDispatch } from '../../6_shared/lib/hooks';
 import { NoteType } from '../../5_entities/note/model/types';
-import { setSelectedNote, toggleLikeNote } from '../../5_entities/note/model/noteSlice';
-import { deleteNoteThunk } from '../../5_entities/note/model/noteThunks';
+import { setSelectedNote } from '../../5_entities/note/model/noteSlice';
 
 type NoteCardProps = {
   note: NoteType;
@@ -16,39 +10,22 @@ type NoteCardProps = {
 export default function NoteCard({ note }: NoteCardProps): React.JSX.Element {
   const dispatch = useAppDispatch();
 
-  // Проверяем, лайкнута ли заметка
-  const isLiked = useAppSelector((store) => !!store.notes.likedNotes.find((n) => n.id === note.id));
-
-  const [loading, transition] = useTransition();
-
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card
+      onClick={() => dispatch(setSelectedNote(note))} // Добавлен обработчик события на карточку
+      style={{
+        width: '18rem',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)', // Прозрачный фон
+        color: 'white', // Белый текст
+        border: '1px solid white', // Белый контур
+        borderRadius: '10px', // Скругленные углы
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)', // Легкая тень
+        textAlign: 'center', // Центрирование текста
+        cursor: 'pointer', // Указатель мыши для интерактивного элемента
+      }}
+    >
       <Card.Body>
-        <Card.Title>{note.title}</Card.Title>
-        <Card.Text>{note.content}</Card.Text>
-
-        {/* Кнопка редактирования */}
-        <Button variant="primary" onClick={() => dispatch(setSelectedNote(note))}>
-          Редактировать
-        </Button>
-
-        {/* Кнопка лайка */}
-        <Button variant="danger" onClick={() => dispatch(toggleLikeNote(note))}>
-          <HeartIcon filled={isLiked} />
-        </Button>
-
-        {/* Кнопка удаления */}
-        <Button
-          disabled={loading}
-          variant="danger"
-          onClick={() =>
-            transition(async () => {
-              await dispatch(deleteNoteThunk(note.id));
-            })
-          }
-        >
-          {loading ? <Spinner animation="border" size="sm" /> : <CloseIcon />}
-        </Button>
+        <Card.Title style={{ fontWeight: 'bold' }}>{note.title}</Card.Title>
       </Card.Body>
     </Card>
   );

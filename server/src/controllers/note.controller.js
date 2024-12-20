@@ -45,14 +45,13 @@ class NoteController {
 
   // Создание новой заметки
   create = async (req, res) => {
-    // console.log('Полученные данные:', req.body);
-    const { title, content, notebookId } = req.body;
+    const { title, content, notebookId, answer } = req.body;
 
     try {
-      if (!title || !content || !notebookId) {
-        return res
-          .status(400)
-          .json({ message: 'Title, content, and notebookId are required' });
+      if (!title || !content || !notebookId || !answer) {
+        return res.status(400).json({
+          message: 'Title, content, notebookId, and answer are required',
+        });
       }
 
       const userId = res.locals.user?.id; // Получаем ID пользователя
@@ -60,13 +59,12 @@ class NoteController {
         return res.status(403).json({ message: 'User not authorized' });
       }
 
-      // console.log('Создание заметки с данными:', { title, content, notebookId, userId });
-
       // Создаем заметку в БД
       const result = await this.#service.create({
         title,
         content,
         notebookId,
+        answer,
         userId,
       });
 
@@ -79,11 +77,9 @@ class NoteController {
 
   // Обновление заметки
   updateOne = async (req, res) => {
-    // console.log('Полученные данные:', req.body);
-
     try {
       const { id } = req.params;
-      const { title, content, notebookId } = req.body;
+      const { title, content, notebookId, answer } = req.body;
       const userId = res.locals.user?.id;
 
       const note = await this.#service.getById(id);
@@ -99,6 +95,7 @@ class NoteController {
         title,
         content,
         notebookId,
+        answer,
         userId,
       });
 
