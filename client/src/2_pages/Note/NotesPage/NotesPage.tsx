@@ -12,8 +12,7 @@ export default function Page(): React.JSX.Element {
 
   // Загружаем заметки при смене пользователя
   useEffect(() => {
-    if (userId) {
-      dispatch(getAllNotesThunk());
+    if (userId) { 
     }
   }, [userId, dispatch]);
 
