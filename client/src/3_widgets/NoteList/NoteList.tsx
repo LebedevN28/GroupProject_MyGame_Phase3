@@ -39,13 +39,13 @@ export default function NoteCard({ note }: NoteCardProps): React.JSX.Element {
         <Card.Text>{note.answer}</Card.Text> */}
 
         {/* Кнопка редактирования */}
-        {/* <Button
+        <Button
           variant="light"
           style={{ marginRight: '10px', border: '1px solid white' }}
           onClick={() => dispatch(setSelectedNote(note))}
         >
           Редактировать
-        </Button> */}
+        </Button>
 
         {/* Кнопка лайка */}
         {/* <Button
