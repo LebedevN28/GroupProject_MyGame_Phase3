@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from '../../4_features/auth/model/authSlice';
 import notesReducer from '../../5_entities/note/model/noteSlice';
+import notebooksReducer from '../../5_entities/notebook/model/notebookSlice'; // Предполагаем, что редьюсер для "ноутбуков" создан
 
 export const store = configureStore({
   reducer: {
     notes: notesReducer,
     auth: authReducer,
+    notebooks: notebooksReducer,
   },
 });
 

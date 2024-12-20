@@ -22,25 +22,45 @@ export default function NoteCard({ note }: NoteCardProps): React.JSX.Element {
   const [loading, transition] = useTransition();
 
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card
+      style={{
+        width: '18rem',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)', // Прозрачный фон
+        color: 'white', // Белый текст
+        border: '1px solid white', // Белый контур
+        borderRadius: '10px', // Скругленные углы
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)', // Легкая тень
+        textAlign: 'center', // Центрирование текста
+      }}
+    >
       <Card.Body>
-        <Card.Title>{note.title}</Card.Title>
-        <Card.Text>{note.content}</Card.Text>
+        <Card.Title style={{ fontWeight: 'bold' }}>{note.title}</Card.Title>
+        {/* <Card.Text>{note.content}</Card.Text>
+        <Card.Text>{note.answer}</Card.Text> */}
 
         {/* Кнопка редактирования */}
-        <Button variant="primary" onClick={() => dispatch(setSelectedNote(note))}>
+        {/* <Button
+          variant="light"
+          style={{ marginRight: '10px', border: '1px solid white' }}
+          onClick={() => dispatch(setSelectedNote(note))}
+        >
           Редактировать
-        </Button>
+        </Button> */}
 
         {/* Кнопка лайка */}
-        <Button variant="danger" onClick={() => dispatch(toggleLikeNote(note))}>
+        {/* <Button
+          variant="light"
+          style={{ marginRight: '10px', border: '1px solid white' }}
+          onClick={() => dispatch(toggleLikeNote(note))}
+        >
           <HeartIcon filled={isLiked} />
-        </Button>
+        </Button> */}
 
         {/* Кнопка удаления */}
-        <Button
+        {/* <Button
           disabled={loading}
-          variant="danger"
+          variant="light"
+          style={{ border: '1px solid white' }}
           onClick={() =>
             transition(async () => {
               await dispatch(deleteNoteThunk(note.id));
@@ -48,7 +68,7 @@ export default function NoteCard({ note }: NoteCardProps): React.JSX.Element {
           }
         >
           {loading ? <Spinner animation="border" size="sm" /> : <CloseIcon />}
-        </Button>
+        </Button> */}
       </Card.Body>
     </Card>
   );

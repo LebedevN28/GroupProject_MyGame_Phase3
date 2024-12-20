@@ -15,6 +15,9 @@ module.exports = {
       content: {
         type: Sequelize.TEXT,
       },
+      answer: {
+        type: Sequelize.TEXT,
+      },
       notebookId: {
         type: Sequelize.INTEGER,
         references: {

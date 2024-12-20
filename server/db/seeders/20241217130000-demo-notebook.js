@@ -4,14 +4,12 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     const notebooks = [
-      {
-        name: 'Work Notes',
-        userId: 1, // Связь с пользователем John Doe
-      },
-      {
-        name: 'Personal Notes',
-        userId: 2, // Связь с пользователем Jane Doe
-      },
+      { name: 'Наука', userId: 1 },
+      { name: 'История', userId: 1 },
+      { name: 'Искусство', userId: 1 },
+      { name: 'Технологии', userId: 1 },
+      { name: 'Литература', userId: 1 },
+      { name: 'География', userId: 1 },
     ].map((notebook) => ({
       ...notebook,
       createdAt: new Date(),
